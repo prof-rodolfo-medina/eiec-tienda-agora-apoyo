@@ -1,0 +1,48 @@
+name: CI - Tienda Agora API
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  commit-stage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Lint
+        run: flake8 app tests
+
+      - name: Tests and coverage
+        run: python -m pytest
+
+      - name: Build container
+        run: docker build -t tienda-agora-api:${{ github.sha }} .
+
+      - name: Smoke test container
+        run: |
+          docker run -d --name tienda-agora -p 8000:8000 tienda-agora-api:${{ github.sha }}
+          for i in {1..20}; do
+            if curl --fail http://localhost:8000/health; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs tienda-agora
+          exit 1

@@ -1,0 +1,30 @@
+stages:
+  - validate
+  - test
+  - build
+
+default:
+  image: python:3.11-slim
+
+before_script:
+  - python -m pip install -r requirements.txt
+
+lint:
+  stage: validate
+  script:
+    - flake8 app tests
+
+tests:
+  stage: test
+  script:
+    - python -m pytest
+  coverage: '/TOTAL.*\s+(\d+%)$/'
+
+container:
+  stage: build
+  image: docker:27
+  services:
+    - docker:27-dind
+  before_script: []
+  script:
+    - docker build -t tienda-agora-api:$CI_COMMIT_SHA .

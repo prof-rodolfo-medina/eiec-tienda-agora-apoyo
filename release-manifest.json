@@ -1,0 +1,21 @@
+{
+  "name": "eiec-tienda-agora-apoyo",
+  "version": "1.0.0",
+  "python": "3.11",
+  "application": "FastAPI",
+  "pipelines": [
+    "GitHub Actions",
+    "GitLab CI"
+  ],
+  "quality": [
+    "pytest",
+    "coverage",
+    "flake8",
+    "SonarQube properties"
+  ],
+  "containers": [
+    "Dockerfile",
+    "docker-compose.yml"
+  ],
+  "scenarios": 4
+}
