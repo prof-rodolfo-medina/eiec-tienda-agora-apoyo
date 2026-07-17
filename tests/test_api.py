@@ -20,13 +20,13 @@ def test_version_endpoint_returns_version():
 def test_products_endpoint_returns_catalog():
     response = client.get("/products")
     assert response.status_code == 200
-    assert len(response.json()) == 3
+    assert len(response.json()) == 4
 
 
 def test_products_count_endpoint_returns_count():
     response = client.get("/products/count")
     assert response.status_code == 200
-    assert response.json() == {"count": 3}
+    assert response.json() == {"count": 4}
 
 
 def test_missing_product_returns_404():
