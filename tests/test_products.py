@@ -17,4 +17,4 @@ def test_get_product_returns_none_for_missing_product():
 
 
 def test_count_products_returns_catalog_size():
-    assert count_products() == 4
+    assert count_products() == 100
