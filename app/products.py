@@ -2,6 +2,7 @@ PRODUCTS = [
     {"id": 1, "name": "Laptop Agora", "price": 14999.0},
     {"id": 2, "name": "Monitor Agora", "price": 4299.0},
     {"id": 3, "name": "Teclado Agora", "price": 899.0},
+    {"id": 4, "name": "Mouse Gamer Agora", "price": 1200.0},
 ]
 
 
